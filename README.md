@@ -21,6 +21,22 @@ out body;
 >;
 out skel qt;
 
+ wget "http://overpass-api.de/api/interpreter?data=
+[out:json];(
+  // query part for: “city”
+  node["place"="city"](35.960,-10.261,44.119,4.614);
+  way["place"="city"](35.960,-10.261,44.119,4.614);
+  relation["place"="city"](35.960,-10.261,44.119,4.614);
+  node["capital"="yes"](35.960,-10.261,44.119,4.614);
+  way["capital"="yes"](35.960,-10.261,44.119,4.614);
+  relation["capital"="yes"](35.960,-10.261,44.119,4.614);
+);
+// print results
+out body;
+>;
+out skel qt;"
+
+
 minimal spanning tree or get nearest
 
 then place components
