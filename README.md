@@ -1,6 +1,9 @@
 # pcbmap
 pcbmap
 
+list of countries
+[out:csv("name:en")]; relation["admin_level"="2"]["ISO3166-1"~"^..$"];out;
+
 overpass-turbo.eu
 
 /*
@@ -39,7 +42,28 @@ out skel qt;"
 
 minimal spanning tree or get nearest
 
+
+
+boundary from overpass
+http://www.overpass-api.de/api/interpreter?data=[bbox];(way[admin_level="2"];way[border_type="nation"];);(._;>;);out body qt;&bbox=112.5,31.9521,123.75,40.9798
+
+https://www.naturalearthdata.com/downloads/110m-physical-vectors/
+https://help.openstreetmap.org/questions/13615/extract-all-country-borders
+https://github.com/openstreetmap/osmosis/releases
+https://wiki.openstreetmap.org/wiki/Osmosis/Installation#Linux
+wget http://download.geofabrik.de/europe/portugal-latest.osm.pbf
+bin/osmosis --read-pbf portugal-latest.osm.pbf --wkv keyValueList="admin_level=2" --used-node --write-xml output2.osm
+
+explanation overpass
+https://towardsdatascience.com/loading-data-from-openstreetmap-with-python-and-the-overpass-api-513882a27fd0
+
+https://gist.github.com/yohanboniface/7df8229fc481cd1b0194fa2788c7bd2d
+
 then place components
+https://forum.kicad.info/t/tutorials-on-python-scripting-in-pcbnew/5333
+
+https://forum.kicad.info/t/python-scripting-example-studio-clock/5387
+https://github.com/xesscorp/WireIt/blob/master/WireIt.py
 https://forum.kicad.info/t/tutorials-on-python-scripting-in-pcbnew/5333
 
 board = pcbnew.GetBoard()
@@ -49,3 +73,34 @@ board.Add(footprint)
 board.save("file")
 
 and freeroute it!
+
+
+misc
+
+
+area["ISO3166-1"="DE"][admin_level=2];
+(
+ node["amenity"="biergarten"](area);
+  way["amenity"="biergarten"](area);
+  rel["amenity"="biergarten"](area);
+);
+out center;
+
+
+---
+[out:json]
+area["ISO3166-1"="ES"][admin_level=2];
+
+(
+  // query part for: “city”
+  node["place"="city"](area);
+  way["place"="city"](area);
+  relation["place"="city"](area);
+  node["capital"="yes"](area);
+  way["capital"="yes"](area);
+  relation["capital"="yes"](area);
+);
+// print results
+out body;
+>;
+out skel qt;
