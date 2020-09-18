@@ -24,5 +24,12 @@ out skel qt;
 minimal spanning tree or get nearest
 
 then place components
+https://forum.kicad.info/t/tutorials-on-python-scripting-in-pcbnew/5333
+
+board = pcbnew.GetBoard()
+footprint = pcbnew.FootprintLoad("/usr/share/kicad/modules/MountingHole.pretty", "MountingHole_3.2mm_M3")
+footprint.SetPosition(wxPoint(FromMM(xValueInMM),FromMM(yValueInMM)))
+board.Add(footprint)
+board.save("file")
 
 and freeroute it!
