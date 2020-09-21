@@ -40,6 +40,26 @@ out body;
 out skel qt;"
 
 
+
+[out:json][timeout:25];
+// fetch area “Andorra” to search in
+{{geocodeArea:Spain}}->.searchArea;
+// gather results
+(
+  node[place~"city"](area.searchArea);
+);
+// print results
+out body;
+>;
+out skel qt;
+
+rel["ISO3166-2"~"^FR"]
+   [admin_level=4]
+   [type=boundary]
+   [boundary=administrative];
+out geom;
+
+
 minimal spanning tree or get nearest
 
 
@@ -71,6 +91,9 @@ footprint = pcbnew.FootprintLoad("/usr/share/kicad/modules/MountingHole.pretty",
 footprint.SetPosition(wxPoint(FromMM(xValueInMM),FromMM(yValueInMM)))
 board.Add(footprint)
 board.save("file")
+
+SEEMS TO BE PERFECT EXAMPLE !!!!
+http://www.jeffmcbride.net/2019/05/28/programatic-layout-with-kicad-and-python.html
 
 and freeroute it!
 
